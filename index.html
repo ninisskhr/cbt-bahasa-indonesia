@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CBT SAS 2 Bahasa Indonesia Kelas 6</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #dbeafe, #f8fafc);
+      color: #1e293b;
+    }
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 18px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 22px;
+      margin-bottom: 18px;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
+    }
+    .hidden { display: none; }
+    .center { text-align: center; }
+    h1, h2, h3 { margin-top: 0; }
+    .school-title {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #475569;
+      margin-bottom: 18px;
+    }
+    input, button {
+      width: 100%;
+      padding: 13px;
+      margin: 8px 0;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      font-size: 16px;
+    }
+    button {
+      border: none;
+      background: #2563eb;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    button:hover { background: #1d4ed8; }
+    button.secondary { background: #64748b; }
+    button.danger { background: #dc2626; }
+    button.success { background: #16a34a; }
+    .topbar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 12px;
+      align-items: center;
+    }
+    .badge {
+      background: #1e40af;
+      color: white;
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-weight: bold;
+      font-size: 20px;
+      text-align: center;
+      min-width: 110px;
+    }
+    .meta {
+      color: #475569;
+      margin-top: 6px;
+    }
+    .question-number {
+      color: #2563eb;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .question-text {
+      font-size: 20px;
+      line-height: 1.55;
+      margin-bottom: 18px;
+      white-space: pre-line;
+    }
+    .option {
+      display: block;
+      padding: 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 14px;
+      margin: 10px 0;
+      cursor: pointer;
+      background: #f8fafc;
+      transition: 0.2s;
+    }
+    .option:hover { background: #eff6ff; border-color: #2563eb; }
+    .option input { width: auto; margin-right: 10px; }
+    .option.selected {
+      background: #dbeafe;
+      border-color: #2563eb;
+    }
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(46px, 1fr));
+      gap: 8px;
+    }
+    .nav-grid button {
+      padding: 10px;
+      color: #0f172a;
+      background: #e2e8f0;
+    }
+    .nav-grid button.answered { background: #22c55e; color: white; }
+    .nav-grid button.active { background: #2563eb; color: white; }
+    .result-box {
+      background: #f1f5f9;
+      padding: 18px;
+      border-radius: 16px;
+      margin: 16px 0;
+      font-size: 22px;
+      font-weight: bold;
+    }
+    .result-actions {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      font-size: 14px;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 9px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { background: #f1f5f9; }
+    .benar { color: #15803d; font-weight: bold; }
+    .salah { color: #dc2626; font-weight: bold; }
+    .note {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #9a3412;
+      padding: 12px;
+      border-radius: 12px;
+      margin-top: 12px;
+      text-align: left;
+    }
+    @media (max-width: 720px) {
+      .topbar, .actions, .result-actions { grid-template-columns: 1fr; }
+      .question-text { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="loginPage" class="card center">
+      <div class="school-title">
+        PEMERINTAH KABUPATEN SAMPANG<br>
+        DINAS PENDIDIKAN<br>
+        UPTD SD NEGERI TAMANSAREH 1<br>
+        DESA TAMANSAREH, KECAMATAN SAMPANG
+      </div>
+      <h1>CBT SAS 2 Bahasa Indonesia</h1>
+      <h2>Kelas 6 SD</h2>
+      <p>Waktu: 90 menit | Jumlah soal: 30</p>
+      <input id="studentName" type="text" placeholder="Nama siswa" autocomplete="off" />
+      <input id="studentNumber" type="text" placeholder="No. absen" autocomplete="off" />
+      <input id="studentClass" type="text" placeholder="Kelas, contoh: 6A" autocomplete="off" />
+      <button onclick="startExam()">Mulai Ujian</button>
+      <div class="note">
+        Catatan: kunci jawaban berada di bagian JavaScript, yaitu pada properti <b>answer</b> di setiap soal.
+      </div>
+    </div>
+
+    <div id="examPage" class="hidden">
+      <div class="card topbar">
+        <div>
+          <h2>CBT SAS 2 Bahasa Indonesia</h2>
+          <div class="meta" id="studentInfo"></div>
+        </div>
+        <div class="badge" id="timer">90:00</div>
+      </div>
+
+      <div class="card">
+        <div class="question-number" id="questionTitle"></div>
+        <div class="question-text" id="questionText"></div>
+        <div id="options"></div>
+        <div class="actions">
+          <button class="secondary" onclick="prevQuestion()">Sebelumnya</button>
+          <button onclick="nextQuestion()">Berikutnya</button>
+          <button class="danger" onclick="finishExam(false)">Selesai</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Navigasi Soal</h3>
+        <div class="nav-grid" id="questionNav"></div>
+      </div>
+    </div>
+
+    <div id="resultPage" class="card hidden center">
+      <h1>Hasil Ujian</h1>
+      <p id="resultIdentity"></p>
+      <div class="result-box" id="scoreBox"></div>
+      <div class="result-actions">
+        <button class="success" onclick="downloadResult()">Download Hasil</button>
+        <button onclick="window.print()">Cetak</button>
+        <button class="secondary" onclick="location.reload()">Ujian Baru</button>
+      </div>
+      <div id="reviewArea"></div>
+    </div>
+  </div>
+
+  <script>
+    // ======================================================
+    // CARA NARUH KUNCI JAWABAN:
+    // Lihat setiap soal di bawah.
+    // Properti answer adalah kunci jawaban.
+    // Contoh: answer: "C" berarti jawaban benar adalah C.
+    // Sistem otomatis membaca answer saat siswa klik SELESAI.
+    // ======================================================
+
+    const questions = [
+      {
+        text: "Jenis teks yang berisi pendapat seseorang mengenai suatu masalah dan bertujuan untuk meyakinkan pembaca disebut teks ...",
+        options: { A: "Narasi", B: "Deskripsi", C: "Argumentasi", D: "Laporan" },
+        answer: "C"
+      },
+      {
+        text: "\"Maka dari itu, mulai saat ini marilah kita budayakan membuang sampah di tempatnya.\" Kalimat tersebut sering ditemukan pada ...",
+        options: { A: "Puisi", B: "Cerpen", C: "Pidato persuasi", D: "Berita" },
+        answer: "C"
+      },
+      {
+        text: "Bagian pidato yang berisi ucapan terima kasih dan permintaan maaf atas tutur kata disebut ...",
+        options: { A: "Pembukaan", B: "Isi", C: "Penutup", D: "Salam pembuka" },
+        answer: "C"
+      },
+      {
+        text: "Sinonim kata 'ahli' adalah ...",
+        options: { A: "Pakar", B: "Pemula", C: "Malas", D: "Lemah" },
+        answer: "A"
+      },
+      {
+        text: "Antonim kata 'lambat' adalah ...",
+        options: { A: "Pelan", B: "Cepat", C: "Tenang", D: "Diam" },
+        answer: "B"
+      },
+      {
+        text: "Contoh kalimat aktif adalah ...",
+        options: {
+          A: "Buku itu dibaca oleh Rani.",
+          B: "Nasi dimasak oleh ibu.",
+          C: "Ayah mencuci sepeda di halaman.",
+          D: "Pintu ditutup oleh adik."
+        },
+        answer: "C"
+      },
+      {
+        text: "Unsur cerita yang berisi tempat, waktu, dan suasana disebut ...",
+        options: { A: "Tema", B: "Amanat", C: "Latar", D: "Tokoh" },
+        answer: "C"
+      },
+      {
+        text: "Arti peribahasa 'Di mana bumi dipijak, di situ langit dijunjung' adalah ...",
+        options: {
+          A: "Kita harus selalu bepergian jauh.",
+          B: "Kita harus menghormati adat dan aturan di tempat kita berada.",
+          C: "Kita harus memandang langit ketika berjalan.",
+          D: "Kita harus tinggal di tempat yang tinggi."
+        },
+        answer: "B"
+      },
+      {
+        text: "Berikut contoh kalimat yang berisi majas personifikasi adalah ...",
+        options: {
+          A: "Anak itu berlari sangat cepat.",
+          B: "Angin malam berbisik lembut di telingaku.",
+          C: "Rumah itu sangat besar.",
+          D: "Buku itu berwarna biru."
+        },
+        answer: "B"
+      },
+      {
+        text: "Cerita rekaan yang berisi angan-angan dan imajinasi, bukan berdasarkan kejadian nyata, disebut ...",
+        options: { A: "Fiksi", B: "Nonfiksi", C: "Laporan", D: "Berita" },
+        answer: "A"
+      },
+      {
+        text: "Paragraf yang kalimat utamanya berada di akhir paragraf disebut paragraf ...",
+        options: { A: "Deduktif", B: "Induktif", C: "Campuran", D: "Naratif" },
+        answer: "B"
+      },
+      {
+        text: "Teks nonfiksi adalah cerita atau tulisan yang dibuat berdasarkan ...",
+        options: { A: "Khayalan", B: "Dongeng", C: "Fakta atau kenyataan", D: "Mimpi" },
+        answer: "C"
+      },
+      {
+        text: "Bacalah paragraf berikut!\n\nHutan adalah paru-paru dunia yang kini merintih kesakitan akibat ulah manusia. Pohon-pohon raksasa tumbang berserakan, kehilangan nyawa karena ditebang tanpa ampun. Sungai-sungai pun menangis pilu, membawa lumpur kecokelatan akibat erosi tanah yang telanjang. Jika hal ini terus dibiarkan, hutan akan benar-benar mati dan meninggalkan warisan bencana bagi generasi mendatang.\n\nBerdasarkan letak kalimat utama, paragraf di atas termasuk paragraf ...",
+        options: { A: "Deduktif", B: "Induktif", C: "Campuran", D: "Dialog" },
+        answer: "A"
+      },
+      {
+        text: "Kalimat 'Sungai-sungai pun menangis pilu' pada paragraf tersebut termasuk majas ...",
+        options: { A: "Hiperbola", B: "Personifikasi", C: "Metafora", D: "Simile" },
+        answer: "B"
+      },
+      {
+        text: "Arti kata 'generasi' yang tepat adalah ...",
+        options: { A: "Kelompok orang dalam satu masa/angkatan", B: "Tempat tinggal", C: "Jenis tumbuhan", D: "Peristiwa alam" },
+        answer: "A"
+      },
+      {
+        text: "Berikut yang termasuk contoh buku fiksi adalah ...",
+        options: { A: "Kamus Bahasa Indonesia", B: "Buku ensiklopedia", C: "Novel petualangan", D: "Buku sejarah nasional" },
+        answer: "C"
+      },
+      {
+        text: "Kalimat yang menggunakan huruf kapital dengan tepat adalah ...",
+        options: {
+          A: "andi pergi ke surabaya.",
+          B: "Andi pergi ke Surabaya.",
+          C: "andi pergi ke Surabaya.",
+          D: "Andi pergi ke surabaya."
+        },
+        answer: "B"
+      },
+      {
+        text: "Tanda baca yang tepat untuk mengakhiri kalimat tanya adalah ...",
+        options: { A: "Titik (.)", B: "Koma (,)", C: "Tanda seru (!)", D: "Tanda tanya (?)" },
+        answer: "D"
+      },
+      {
+        text: "Gagasan pokok biasanya terdapat dalam ...",
+        options: { A: "Kalimat utama", B: "Kata sambung", C: "Tanda baca", D: "Daftar pustaka" },
+        answer: "A"
+      },
+      {
+        text: "Kalimat efektif adalah kalimat yang ...",
+        options: { A: "Panjang dan berulang", B: "Jelas, singkat, dan tidak bertele-tele", C: "Selalu menggunakan majas", D: "Tidak memiliki tanda baca" },
+        answer: "B"
+      },
+      {
+        text: "Kata baku dari 'apotik' adalah ...",
+        options: { A: "Apotik", B: "Apotek", C: "Apotick", D: "Apoteg" },
+        answer: "B"
+      },
+      {
+        text: "Kalimat yang termasuk kalimat ajakan adalah ...",
+        options: {
+          A: "Saya sedang membaca buku.",
+          B: "Ayo kita menjaga kebersihan kelas!",
+          C: "Di mana rumahmu?",
+          D: "Pohon itu sangat tinggi."
+        },
+        answer: "B"
+      },
+      {
+        text: "Tokoh utama dalam cerita adalah tokoh yang ...",
+        options: { A: "Jarang muncul", B: "Paling banyak diceritakan", C: "Tidak penting", D: "Hanya disebut sekali" },
+        answer: "B"
+      },
+      {
+        text: "Pesan yang dapat diambil dari sebuah cerita disebut ...",
+        options: { A: "Amanat", B: "Alur", C: "Tokoh", D: "Tema" },
+        answer: "A"
+      },
+      {
+        text: "Urutan peristiwa dalam cerita disebut ...",
+        options: { A: "Tema", B: "Alur", C: "Amanat", D: "Watak" },
+        answer: "B"
+      },
+      {
+        text: "Kata hubung yang menyatakan sebab adalah ...",
+        options: { A: "Dan", B: "Karena", C: "Atau", D: "Tetapi" },
+        answer: "B"
+      },
+      {
+        text: "Kata tanya 'mengapa' digunakan untuk menanyakan ...",
+        options: { A: "Tempat", B: "Waktu", C: "Alasan", D: "Jumlah" },
+        answer: "C"
+      },
+      {
+        text: "Bentuk penulisan judul yang tepat adalah ...",
+        options: { A: "manfaat membaca buku", B: "Manfaat Membaca Buku", C: "MANFAAT membaca buku", D: "manfaat Membaca buku" },
+        answer: "B"
+      },
+      {
+        text: "Surat undangan resmi biasanya menggunakan bahasa yang ...",
+        options: { A: "Santai", B: "Baku dan sopan", C: "Bercanda", D: "Kasar" },
+        answer: "B"
+      },
+      {
+        text: "Ringkasan adalah penyajian isi teks secara ...",
+        options: { A: "Panjang dan lengkap seperti teks asli", B: "Singkat dan jelas", C: "Acak", D: "Berlebihan" },
+        answer: "B"
+      }
+    ];
+
+    let currentQuestion = 0;
+    let answers = Array(questions.length).fill(null);
+    let studentName = "";
+    let studentNumber = "";
+    let studentClass = "";
+    let timeLeft = 90 * 60;
+    let timerInterval;
+    let finished = false;
+
+    function startExam() {
+      studentName = document.getElementById("studentName").value.trim();
+      studentNumber = document.getElementById("studentNumber").value.trim();
+      studentClass = document.getElementById("studentClass").value.trim();
+
+      if (!studentName || !studentNumber || !studentClass) {
+        alert("Nama, nomor absen, dan kelas wajib diisi.");
+        return;
+      }
+
+      document.getElementById("loginPage").classList.add("hidden");
+      document.getElementById("examPage").classList.remove("hidden");
+      document.getElementById("studentInfo").innerText = `Nama: ${studentName} | No. Absen: ${studentNumber} | Kelas: ${studentClass}`;
+      renderQuestion();
+      renderNav();
+      startTimer();
+    }
+
+    function startTimer() {
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        document.getElementById("timer").innerText = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          finishExam(true);
+        }
+      }, 1000);
+    }
+
+    function renderQuestion() {
+      const q = questions[currentQuestion];
+      document.getElementById("questionTitle").innerText = `Soal ${currentQuestion + 1} dari ${questions.length}`;
+      document.getElementById("questionText").innerText = q.text;
+
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+
+      Object.keys(q.options).forEach(key => {
+        const label = document.createElement("label");
+        label.className = "option" + (answers[currentQuestion] === key ? " selected" : "");
+        label.innerHTML = `
+          <input type="radio" name="answer" value="${key}" ${answers[currentQuestion] === key ? "checked" : ""}>
+          <strong>${key}.</strong> ${q.options[key]}
+        `;
+        label.onclick = () => {
+          answers[currentQuestion] = key;
+          renderQuestion();
+          renderNav();
+        };
+        optionsDiv.appendChild(label);
+      });
+
+      renderNav();
+    }
+
+    function renderNav() {
+      const nav = document.getElementById("questionNav");
+      nav.innerHTML = "";
+
+      questions.forEach((_, index) => {
+        const btn = document.createElement("button");
+        btn.innerText = index + 1;
+        if (answers[index]) btn.classList.add("answered");
+        if (index === currentQuestion) btn.classList.add("active");
+        btn.onclick = () => {
+          currentQuestion = index;
+          renderQuestion();
+        };
+        nav.appendChild(btn);
+      });
+    }
+
+    function nextQuestion() {
+      if (currentQuestion < questions.length - 1) {
+        currentQuestion++;
+        renderQuestion();
+      }
+    }
+
+    function prevQuestion() {
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        renderQuestion();
+      }
+    }
+
+    function finishExam(auto = false) {
+      if (finished) return;
+
+      if (!auto) {
+        const unanswered = answers.filter(a => a === null).length;
+        const confirmFinish = confirm(`Masih ada ${unanswered} soal belum dijawab. Yakin selesai?`);
+        if (!confirmFinish) return;
+      }
+
+      finished = true;
+      clearInterval(timerInterval);
+
+      let correct = 0;
+      questions.forEach((q, i) => {
+        if (answers[i] === q.answer) correct++;
+      });
+
+      const score = Math.round((correct / questions.length) * 100);
+      const wrong = questions.length - correct;
+
+      const resultData = {
+        nama: studentName,
+        noAbsen: studentNumber,
+        kelas: studentClass,
+        benar: correct,
+        salah: wrong,
+        jumlahSoal: questions.length,
+        nilai: score,
+        waktuSelesai: new Date().toLocaleString("id-ID")
+      };
+
+      localStorage.setItem("hasilCBT", JSON.stringify(resultData));
+
+      document.getElementById("examPage").classList.add("hidden");
+      document.getElementById("resultPage").classList.remove("hidden");
+      document.getElementById("resultIdentity").innerText = `Nama: ${studentName} | No. Absen: ${studentNumber} | Kelas: ${studentClass}`;
+      document.getElementById("scoreBox").innerHTML = `Nilai: ${score}<br>Benar: ${correct}/${questions.length} | Salah: ${wrong}`;
+
+      renderReview();
+    }
+
+    function renderReview() {
+      let html = `
+        <h3>Review Jawaban</h3>
+        <table>
+          <tr>
+            <th>No</th>
+            <th>Jawaban Siswa</th>
+            <th>Kunci</th>
+            <th>Status</th>
+          </tr>
+      `;
+
+      questions.forEach((q, i) => {
+        const studentAnswer = answers[i] || "-";
+        const status = studentAnswer === q.answer ? "Benar" : "Salah";
+        const cls = status === "Benar" ? "benar" : "salah";
+        html += `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${studentAnswer}</td>
+            <td>${q.answer}</td>
+            <td class="${cls}">${status}</td>
+          </tr>
+        `;
+      });
+
+      html += "</table>";
+      document.getElementById("reviewArea").innerHTML = html;
+    }
+
+    function downloadResult() {
+      const data = JSON.parse(localStorage.getItem("hasilCBT"));
+      let text = "HASIL CBT SAS 2 BAHASA INDONESIA\n";
+      text += "====================================\n";
+      text += `Nama: ${data.nama}\n`;
+      text += `No. Absen: ${data.noAbsen}\n`;
+      text += `Kelas: ${data.kelas}\n`;
+      text += `Benar: ${data.benar}/${data.jumlahSoal}\n`;
+      text += `Salah: ${data.salah}\n`;
+      text += `Nilai: ${data.nilai}\n`;
+      text += `Waktu selesai: ${data.waktuSelesai}\n`;
+
+      const blob = new Blob([text], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `hasil-${studentName.replaceAll(" ", "-")}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
