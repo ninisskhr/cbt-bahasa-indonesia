@@ -6,52 +6,85 @@
   <title>CBT SAS 2 Bahasa Indonesia Kelas 6</title>
   <style>
     * { box-sizing: border-box; }
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --slate: #334155;
+      --soft: #f8fafc;
+      --border: #dbe3ef;
+    }
     body {
       margin: 0;
+      min-height: 100vh;
       font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #dbeafe, #f8fafc);
-      color: #1e293b;
+      color: #0f172a;
+      background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.25), transparent 34%),
+        radial-gradient(circle at bottom right, rgba(22, 163, 74, 0.18), transparent 30%),
+        linear-gradient(135deg, #e0f2fe, #f8fafc 45%, #eef2ff);
     }
     .container {
-      max-width: 1100px;
+      max-width: 1120px;
       margin: auto;
       padding: 18px;
     }
     .card {
-      background: #ffffff;
-      border-radius: 20px;
-      padding: 22px;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(219, 227, 239, 0.9);
+      border-radius: 24px;
+      padding: 24px;
       margin-bottom: 18px;
-      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.12);
+      box-shadow: 0 18px 45px rgba(15, 23, 42, 0.14);
+      backdrop-filter: blur(8px);
     }
     .hidden { display: none; }
     .center { text-align: center; }
     h1, h2, h3 { margin-top: 0; }
+    h1 { font-size: 34px; letter-spacing: -0.5px; }
+    h2 { color: #1e293b; }
     .school-title {
       font-size: 14px;
-      line-height: 1.5;
+      line-height: 1.55;
       color: #475569;
       margin-bottom: 18px;
+      text-transform: uppercase;
+    }
+    .hero-badge {
+      display: inline-block;
+      padding: 8px 14px;
+      border-radius: 999px;
+      color: #1e40af;
+      background: #dbeafe;
+      font-weight: bold;
+      margin-bottom: 12px;
     }
     input, button {
       width: 100%;
-      padding: 13px;
+      padding: 14px;
       margin: 8px 0;
-      border-radius: 12px;
+      border-radius: 14px;
       border: 1px solid #cbd5e1;
       font-size: 16px;
     }
+    input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.14);
+    }
     button {
       border: none;
-      background: #2563eb;
+      background: linear-gradient(135deg, var(--primary), #4f46e5);
       color: white;
       font-weight: bold;
       cursor: pointer;
+      box-shadow: 0 10px 18px rgba(37, 99, 235, 0.25);
     }
-    button:hover { background: #1d4ed8; }
-    button.secondary { background: #64748b; }
-    button.danger { background: #dc2626; }
-    button.success { background: #16a34a; }
+    button:hover { filter: brightness(0.96); transform: translateY(-1px); }
+    button.secondary { background: #64748b; box-shadow: none; }
+    button.danger { background: #dc2626; box-shadow: none; }
+    button.success { background: #16a34a; box-shadow: none; }
     .topbar {
       display: grid;
       grid-template-columns: 1fr auto;
@@ -59,45 +92,47 @@
       align-items: center;
     }
     .badge {
-      background: #1e40af;
+      background: #0f172a;
       color: white;
       padding: 12px 18px;
       border-radius: 999px;
       font-weight: bold;
       font-size: 20px;
       text-align: center;
-      min-width: 110px;
+      min-width: 112px;
     }
-    .meta {
-      color: #475569;
-      margin-top: 6px;
-    }
+    .meta { color: #475569; margin-top: 6px; }
     .question-number {
-      color: #2563eb;
+      display: inline-block;
+      color: #1d4ed8;
+      background: #dbeafe;
       font-weight: bold;
-      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      margin-bottom: 12px;
     }
     .question-text {
       font-size: 20px;
-      line-height: 1.55;
+      line-height: 1.6;
       margin-bottom: 18px;
       white-space: pre-line;
     }
     .option {
       display: block;
-      padding: 14px;
+      padding: 15px;
       border: 1px solid #cbd5e1;
-      border-radius: 14px;
+      border-radius: 16px;
       margin: 10px 0;
       cursor: pointer;
       background: #f8fafc;
-      transition: 0.2s;
+      transition: 0.18s;
     }
     .option:hover { background: #eff6ff; border-color: #2563eb; }
     .option input { width: auto; margin-right: 10px; }
     .option.selected {
       background: #dbeafe;
       border-color: #2563eb;
+      box-shadow: 0 8px 18px rgba(37, 99, 235, 0.12);
     }
     .actions {
       display: grid;
@@ -114,61 +149,65 @@
       padding: 10px;
       color: #0f172a;
       background: #e2e8f0;
+      box-shadow: none;
     }
     .nav-grid button.answered { background: #22c55e; color: white; }
     .nav-grid button.active { background: #2563eb; color: white; }
     .result-box {
-      background: #f1f5f9;
-      padding: 18px;
-      border-radius: 16px;
-      margin: 16px 0;
-      font-size: 22px;
+      background: linear-gradient(135deg, #dbeafe, #f0fdf4);
+      padding: 24px;
+      border-radius: 20px;
+      margin: 18px 0;
+      font-size: 34px;
       font-weight: bold;
+      color: #0f172a;
     }
     .result-actions {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 10px;
     }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 14px;
-      font-size: 14px;
-    }
-    th, td {
-      border: 1px solid #cbd5e1;
-      padding: 9px;
-      text-align: left;
-      vertical-align: top;
-    }
-    th { background: #f1f5f9; }
-    .benar { color: #15803d; font-weight: bold; }
-    .salah { color: #dc2626; font-weight: bold; }
     .note {
       background: #fff7ed;
       border: 1px solid #fed7aa;
       color: #9a3412;
       padding: 12px;
-      border-radius: 12px;
+      border-radius: 14px;
       margin-top: 12px;
       text-align: left;
     }
+    .status {
+      color: #475569;
+      font-weight: bold;
+      min-height: 24px;
+    }
     @media (max-width: 720px) {
       .topbar, .actions, .result-actions { grid-template-columns: 1fr; }
+      h1 { font-size: 28px; }
       .question-text { font-size: 18px; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div id="loginPage" class="card center">
+    <div id="accessPage" class="card center">
+      <div class="hero-badge">Akses Ujian</div>
+      <h1>CBT SAS 2 Bahasa Indonesia</h1>
+      <h2>Kelas 6 SD</h2>
+      <p>Masukkan kode akses untuk melanjutkan ke halaman identitas siswa.</p>
+      <input id="accessCodeInput" type="password" placeholder="Masukkan kode akses" autocomplete="off" />
+      <button onclick="checkAccessCode()">Masuk</button>
+      <p class="status" id="accessStatus"></p>
+    </div>
+
+    <div id="loginPage" class="card center hidden">
       <div class="school-title">
         PEMERINTAH KABUPATEN SAMPANG<br>
         DINAS PENDIDIKAN<br>
         UPTD SD NEGERI TAMANSAREH 1<br>
         DESA TAMANSAREH, KECAMATAN SAMPANG
       </div>
+      <div class="hero-badge">Identitas Peserta</div>
       <h1>CBT SAS 2 Bahasa Indonesia</h1>
       <h2>Kelas 6 SD</h2>
       <p>Waktu: 90 menit | Jumlah soal: 30</p>
@@ -176,9 +215,6 @@
       <input id="studentNumber" type="text" placeholder="No. absen" autocomplete="off" />
       <input id="studentClass" type="text" placeholder="Kelas, contoh: 6A" autocomplete="off" />
       <button onclick="startExam()">Mulai Ujian</button>
-      <div class="note">
-        Catatan: kunci jawaban berada di bagian JavaScript, yaitu pada properti <b>answer</b> di setiap soal.
-      </div>
     </div>
 
     <div id="examPage" class="hidden">
@@ -208,202 +244,186 @@
     </div>
 
     <div id="resultPage" class="card hidden center">
-      <h1>Hasil Ujian</h1>
+      <div class="hero-badge">Hasil Ujian</div>
+      <h1>Terima kasih</h1>
       <p id="resultIdentity"></p>
       <div class="result-box" id="scoreBox"></div>
+      <p class="status" id="sheetStatus">Mengirim hasil ke Google Sheet...</p>
       <div class="result-actions">
-        <button class="success" onclick="downloadResult()">Download Hasil</button>
-        <button onclick="window.print()">Cetak</button>
+        <button onclick="window.print()">Cetak Hasil</button>
         <button class="secondary" onclick="location.reload()">Ujian Baru</button>
       </div>
-      <div id="reviewArea"></div>
     </div>
   </div>
 
   <script>
     // ======================================================
-    // CARA NARUH KUNCI JAWABAN:
-    // Lihat setiap soal di bawah.
-    // Properti answer adalah kunci jawaban.
-    // Contoh: answer: "C" berarti jawaban benar adalah C.
-    // Sistem otomatis membaca answer saat siswa klik SELESAI.
+    // KODE AKSES MASUK
+    // Siswa harus memasukkan kode ini sebelum masuk halaman identitas.
     // ======================================================
+    const ACCESS_CODE = "d14hN1a";
 
+    // ======================================================
+    // LINK GOOGLE APPS SCRIPT
+    // Setelah membuat Apps Script dan Deploy sebagai Web App,
+    // paste URL Web App di bawah ini.
+    // ======================================================
+    const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz15ma8lDvxQVgGuLdeODjMmIAWgTSQ-d4AyEiY74RZdb9AgnsrYJeh0MOkJ78J4-hkQQ/exec";
+
+    // ======================================================
+    // KUNCI JAWABAN ADA DI PROPERTI answer
+    // Contoh: answer: "C" berarti jawaban benar adalah C.
+    // ======================================================
     const questions = [
       {
-        text: "Jenis teks yang berisi pendapat seseorang mengenai suatu masalah dan bertujuan untuk meyakinkan pembaca disebut teks ...",
-        options: { A: "Narasi", B: "Deskripsi", C: "Argumentasi", D: "Laporan" },
+        text: "Jenis teks yang berisi pendapat seseorang mengenai suatu masalah yang bertujuan untuk meyakinkan pembaca disebut teks ...",
+        options: { A: "Narasi", B: "Deskripsi", C: "Argumentasi", D: "Persuasi" },
         answer: "C"
       },
       {
-        text: "\"Maka dari itu, mulai saat ini marilah kita budayakan membuang sampah di tempatnya.\" Kalimat tersebut sering ditemukan pada ...",
+        text: "\"Maka dari itu mulai dari saat ini marilah kita budayakan membuang sampah di tempatnya.\" Kalimat ini sering ditemukan pada ...",
         options: { A: "Puisi", B: "Cerpen", C: "Pidato persuasi", D: "Berita" },
         answer: "C"
       },
       {
-        text: "Bagian pidato yang berisi ucapan terima kasih dan permintaan maaf atas tutur kata disebut ...",
-        options: { A: "Pembukaan", B: "Isi", C: "Penutup", D: "Salam pembuka" },
-        answer: "C"
+        text: "Bagian pidato yang berisi ucapan terima kasih dan permintaan maaf atas tutur kata adalah ...",
+        options: { A: "Pembuka pidato", B: "Pakar", C: "Isi pidato", D: "Penutup pidato" },
+        answer: "D"
       },
       {
-        text: "Sinonim kata 'ahli' adalah ...",
-        options: { A: "Pakar", B: "Pemula", C: "Malas", D: "Lemah" },
+        text: "Sinonim kata ahli adalah ...",
+        options: { A: "Pakar", B: "Awal", C: "Isi pidato", D: "Penutup pidato" },
         answer: "A"
       },
       {
-        text: "Antonim kata 'lambat' adalah ...",
-        options: { A: "Pelan", B: "Cepat", C: "Tenang", D: "Diam" },
-        answer: "B"
-      },
-      {
-        text: "Contoh kalimat aktif adalah ...",
-        options: {
-          A: "Buku itu dibaca oleh Rani.",
-          B: "Nasi dimasak oleh ibu.",
-          C: "Ayah mencuci sepeda di halaman.",
-          D: "Pintu ditutup oleh adik."
-        },
+        text: "Pagi hari adalah waktu yang tepat untuk berolahraga. Udara masih segar dan belum tercemar polusi. Selain itu, tubuh menjadi lebih sehat dan bugar jika rutin berolahraga di pagi hari.\n\nIde pokok paragraf tersebut adalah ...",
+        options: { A: "Udara pagi belum tercemar", B: "Olahraga pagi membuat sehat", C: "Pagi hari waktu tepat berolahraga", D: "Tubuh menjadi bugar" },
         answer: "C"
       },
       {
-        text: "Unsur cerita yang berisi tempat, waktu, dan suasana disebut ...",
+        text: "Makna kata \"segar\" pada paragraf tersebut adalah ...",
+        options: { A: "Lelah", B: "Bersih dan nyaman", C: "Panas", D: "Kotor" },
+        answer: "B"
+      },
+      {
+        text: "Kesimpulan paragraf tersebut adalah ...",
+        options: { A: "Udara pagi sangat panas", B: "Olahraga pagi tidak penting", C: "Pagi hari cocok untuk berolahraga", D: "Olahraga hanya dilakukan siang hari" },
+        answer: "C"
+      },
+      {
+        text: "Sinonim dari kata \"cerdas\" adalah ...",
+        options: { A: "Bodoh", B: "Pandai", C: "Malas", D: "Lemah" },
+        answer: "B"
+      },
+      {
+        text: "Antonim dari kata \"hemat\" adalah ...",
+        options: { A: "Boros", B: "Rajin", C: "Pelit", D: "Kaya" },
+        answer: "A"
+      },
+      {
+        text: "Kalimat yang menggunakan kata baku adalah ...",
+        options: { A: "Adik lagi nyatet pelajaran", B: "Ibu membeli obat di apotek", C: "Saya nggak tau jawabannya", D: "Mereka lagi ngobrol" },
+        answer: "B"
+      },
+      {
+        text: "Penggunaan tanda koma yang tepat adalah ...",
+        options: { A: "Ibu membeli sayur buah dan ikan", B: "Ibu membeli sayur, buah, dan ikan", C: "Ibu membeli sayur buah, dan ikan", D: "Ibu membeli sayur buah dan, ikan" },
+        answer: "B"
+      },
+      {
+        text: "Kata hubung \"karena\" menyatakan hubungan ...",
+        options: { A: "Waktu", B: "Syarat", C: "Sebab-akibat", D: "Pertentangan" },
+        answer: "C"
+      },
+      {
+        text: "Kalimat efektif adalah ...",
+        options: { A: "Para siswa-siswa sedang belajar", B: "Siswa-siswa sedang belajar semua", C: "Para siswa sedang belajar", D: "Semua para siswa belajar" },
+        answer: "C"
+      },
+      {
+        text: "Makna istilah \"ekosistem\" adalah ...",
+        options: { A: "Lingkungan hidup makhluk hidup", B: "Tempat tinggal manusia", C: "Kumpulan hewan", D: "Tumbuhan di hutan" },
+        answer: "A"
+      },
+      {
+        text: "Hutan memiliki peran penting bagi kehidupan manusia. Hutan menghasilkan oksigen dan menyerap karbon dioksida. Selain itu, hutan juga menjadi habitat berbagai hewan dan tumbuhan.\n\nIde pokok paragraf tersebut adalah ...",
+        options: { A: "Hutan tempat tinggal hewan", B: "Hutan menghasilkan oksigen", C: "Pentingnya hutan bagi kehidupan", D: "Hutan menyerap karbon" },
+        answer: "C"
+      },
+      {
+        text: "Makna kata \"habitat\" adalah ...",
+        options: { A: "Makanan", B: "Tempat hidup", C: "Udara", D: "Air" },
+        answer: "B"
+      },
+      {
+        text: "Kata hubung \"selain itu\" menyatakan ...",
+        options: { A: "Pertentangan", B: "Penambahan", C: "Sebab", D: "Syarat" },
+        answer: "B"
+      },
+      {
+        text: "Kesimpulan paragraf tersebut adalah ...",
+        options: { A: "Hutan tidak penting", B: "Hutan hanya untuk hewan", C: "Hutan sangat bermanfaat", D: "Hutan tidak menghasilkan oksigen" },
+        answer: "C"
+      },
+      {
+        text: "Antonim kata lambat adalah ...",
+        options: { A: "Singkat", B: "Tepat", C: "Cepat", D: "Lepas" },
+        answer: "C"
+      },
+      {
+        text: "Contoh kalimat aktif di bawah ini adalah ...",
+        options: { A: "Buku itu dibaca oleh Rani.", B: "Nasi dimasak oleh ibu.", C: "Ayah mencuci sepeda di halaman.", D: "Pintu ditutup oleh adik." },
+        answer: "C"
+      },
+      {
+        text: "Unsur cerita yang berisi tempat dan suasana disebut ...",
         options: { A: "Tema", B: "Amanat", C: "Latar", D: "Tokoh" },
         answer: "C"
       },
       {
-        text: "Arti peribahasa 'Di mana bumi dipijak, di situ langit dijunjung' adalah ...",
-        options: {
-          A: "Kita harus selalu bepergian jauh.",
-          B: "Kita harus menghormati adat dan aturan di tempat kita berada.",
-          C: "Kita harus memandang langit ketika berjalan.",
-          D: "Kita harus tinggal di tempat yang tinggi."
-        },
+        text: "Arti dari peribahasa 'Di mana bumi dipijak, di situ langit dijunjung' adalah ...",
+        options: { A: "Kita harus selalu bepergian jauh", B: "Kita harus menghormati adat dan aturan tempat kita berada", C: "Kita harus memandang langit ketika berjalan", D: "Kita harus tinggal di tempat yang tinggi" },
         answer: "B"
       },
       {
-        text: "Berikut contoh kalimat yang berisi majas personifikasi adalah ...",
-        options: {
-          A: "Anak itu berlari sangat cepat.",
-          B: "Angin malam berbisik lembut di telingaku.",
-          C: "Rumah itu sangat besar.",
-          D: "Buku itu berwarna biru."
-        },
+        text: "Berikut adalah contoh kalimat yang berisi majas personifikasi adalah ...",
+        options: { A: "Anak itu berlarian sangat cepat", B: "Angin malam berbisik lembut di telingaku", C: "Rumah itu sangat besar", D: "Buku itu berwarna biru" },
         answer: "B"
       },
       {
-        text: "Cerita rekaan yang berisi angan-angan dan imajinasi, bukan berdasarkan kejadian nyata, disebut ...",
+        text: "Cerita rekaan yang berisi angan-angan dan imajinasi, bukan berdasarkan kejadian nyata adalah ...",
         options: { A: "Fiksi", B: "Nonfiksi", C: "Laporan", D: "Berita" },
         answer: "A"
       },
       {
-        text: "Paragraf yang kalimat utamanya berada di akhir paragraf disebut paragraf ...",
+        text: "Paragraf yang kalimat utamanya berada di akhir paragraf disebut ...",
         options: { A: "Deduktif", B: "Induktif", C: "Campuran", D: "Naratif" },
         answer: "B"
       },
       {
-        text: "Teks nonfiksi adalah cerita atau tulisan yang dibuat berdasarkan ...",
-        options: { A: "Khayalan", B: "Dongeng", C: "Fakta atau kenyataan", D: "Mimpi" },
+        text: "Teks nonfiksi adalah cerita yang ditulis berdasarkan ...",
+        options: { A: "Khayalan", B: "Dongeng", C: "Fakta dan kenyataan", D: "Mimpi" },
         answer: "C"
       },
       {
-        text: "Bacalah paragraf berikut!\n\nHutan adalah paru-paru dunia yang kini merintih kesakitan akibat ulah manusia. Pohon-pohon raksasa tumbang berserakan, kehilangan nyawa karena ditebang tanpa ampun. Sungai-sungai pun menangis pilu, membawa lumpur kecokelatan akibat erosi tanah yang telanjang. Jika hal ini terus dibiarkan, hutan akan benar-benar mati dan meninggalkan warisan bencana bagi generasi mendatang.\n\nBerdasarkan letak kalimat utama, paragraf di atas termasuk paragraf ...",
+        text: "Hutan adalah paru-paru dunia yang kini merintih kesakitan akibat ulah manusia. Pohon-pohon raksasa tumbang berserakan, kehilangan nyawa karena ditebang tanpa ampun. Sungai-sungai pun menangis pilu, membawa lumpur kecokelatan akibat erosi tanah yang telanjang. Jika hal ini terus dibiarkan, hutan akan benar-benar mati dan meninggalkan warisan bencana bagi generasi mendatang.\n\nBerdasarkan letak kalimat utama, paragraf di atas termasuk paragraf ...",
         options: { A: "Deduktif", B: "Induktif", C: "Campuran", D: "Dialog" },
         answer: "A"
       },
       {
-        text: "Kalimat 'Sungai-sungai pun menangis pilu' pada paragraf tersebut termasuk majas ...",
+        text: "Sungai-sungai pun menangis pilu, kalimat yang terdapat dalam paragraf di atas adalah majas ...",
         options: { A: "Hiperbola", B: "Personifikasi", C: "Metafora", D: "Simile" },
         answer: "B"
       },
       {
-        text: "Arti kata 'generasi' yang tepat adalah ...",
-        options: { A: "Kelompok orang dalam satu masa/angkatan", B: "Tempat tinggal", C: "Jenis tumbuhan", D: "Peristiwa alam" },
-        answer: "A"
-      },
-      {
-        text: "Berikut yang termasuk contoh buku fiksi adalah ...",
-        options: { A: "Kamus Bahasa Indonesia", B: "Buku ensiklopedia", C: "Novel petualangan", D: "Buku sejarah nasional" },
+        text: "Arti kata generasi yang tepat adalah ...",
+        options: { A: "Tumbuhan", B: "Pendatang", C: "Penerus/angkatan", D: "Peristiwa alam" },
         answer: "C"
       },
       {
-        text: "Kalimat yang menggunakan huruf kapital dengan tepat adalah ...",
-        options: {
-          A: "andi pergi ke surabaya.",
-          B: "Andi pergi ke Surabaya.",
-          C: "andi pergi ke Surabaya.",
-          D: "Andi pergi ke surabaya."
-        },
-        answer: "B"
-      },
-      {
-        text: "Tanda baca yang tepat untuk mengakhiri kalimat tanya adalah ...",
-        options: { A: "Titik (.)", B: "Koma (,)", C: "Tanda seru (!)", D: "Tanda tanya (?)" },
-        answer: "D"
-      },
-      {
-        text: "Gagasan pokok biasanya terdapat dalam ...",
-        options: { A: "Kalimat utama", B: "Kata sambung", C: "Tanda baca", D: "Daftar pustaka" },
+        text: "Berikut adalah contoh buku fiksi adalah ...",
+        options: { A: "Buku dongeng", B: "Buku seni", C: "Kamus", D: "Buku Matematika" },
         answer: "A"
-      },
-      {
-        text: "Kalimat efektif adalah kalimat yang ...",
-        options: { A: "Panjang dan berulang", B: "Jelas, singkat, dan tidak bertele-tele", C: "Selalu menggunakan majas", D: "Tidak memiliki tanda baca" },
-        answer: "B"
-      },
-      {
-        text: "Kata baku dari 'apotik' adalah ...",
-        options: { A: "Apotik", B: "Apotek", C: "Apotick", D: "Apoteg" },
-        answer: "B"
-      },
-      {
-        text: "Kalimat yang termasuk kalimat ajakan adalah ...",
-        options: {
-          A: "Saya sedang membaca buku.",
-          B: "Ayo kita menjaga kebersihan kelas!",
-          C: "Di mana rumahmu?",
-          D: "Pohon itu sangat tinggi."
-        },
-        answer: "B"
-      },
-      {
-        text: "Tokoh utama dalam cerita adalah tokoh yang ...",
-        options: { A: "Jarang muncul", B: "Paling banyak diceritakan", C: "Tidak penting", D: "Hanya disebut sekali" },
-        answer: "B"
-      },
-      {
-        text: "Pesan yang dapat diambil dari sebuah cerita disebut ...",
-        options: { A: "Amanat", B: "Alur", C: "Tokoh", D: "Tema" },
-        answer: "A"
-      },
-      {
-        text: "Urutan peristiwa dalam cerita disebut ...",
-        options: { A: "Tema", B: "Alur", C: "Amanat", D: "Watak" },
-        answer: "B"
-      },
-      {
-        text: "Kata hubung yang menyatakan sebab adalah ...",
-        options: { A: "Dan", B: "Karena", C: "Atau", D: "Tetapi" },
-        answer: "B"
-      },
-      {
-        text: "Kata tanya 'mengapa' digunakan untuk menanyakan ...",
-        options: { A: "Tempat", B: "Waktu", C: "Alasan", D: "Jumlah" },
-        answer: "C"
-      },
-      {
-        text: "Bentuk penulisan judul yang tepat adalah ...",
-        options: { A: "manfaat membaca buku", B: "Manfaat Membaca Buku", C: "MANFAAT membaca buku", D: "manfaat Membaca buku" },
-        answer: "B"
-      },
-      {
-        text: "Surat undangan resmi biasanya menggunakan bahasa yang ...",
-        options: { A: "Santai", B: "Baku dan sopan", C: "Bercanda", D: "Kasar" },
-        answer: "B"
-      },
-      {
-        text: "Ringkasan adalah penyajian isi teks secara ...",
-        options: { A: "Panjang dan lengkap seperti teks asli", B: "Singkat dan jelas", C: "Acak", D: "Berlebihan" },
-        answer: "B"
       }
     ];
 
@@ -415,6 +435,22 @@
     let timeLeft = 90 * 60;
     let timerInterval;
     let finished = false;
+
+    function checkAccessCode() {
+      const input = document.getElementById("accessCodeInput").value.trim();
+      const status = document.getElementById("accessStatus");
+
+      if (input === ACCESS_CODE) {
+        document.getElementById("accessPage").classList.add("hidden");
+        document.getElementById("loginPage").classList.remove("hidden");
+      } else {
+        status.innerText = "Kode akses salah.";
+      }
+    }
+
+    document.getElementById("accessCodeInput").addEventListener("keydown", function(event) {
+      if (event.key === "Enter") checkAccessCode();
+    });
 
     function startExam() {
       studentName = document.getElementById("studentName").value.trim();
@@ -523,17 +559,12 @@
       });
 
       const score = Math.round((correct / questions.length) * 100);
-      const wrong = questions.length - correct;
 
       const resultData = {
         nama: studentName,
         noAbsen: studentNumber,
         kelas: studentClass,
-        benar: correct,
-        salah: wrong,
-        jumlahSoal: questions.length,
-        nilai: score,
-        waktuSelesai: new Date().toLocaleString("id-ID")
+        nilai: score
       };
 
       localStorage.setItem("hasilCBT", JSON.stringify(resultData));
@@ -541,60 +572,31 @@
       document.getElementById("examPage").classList.add("hidden");
       document.getElementById("resultPage").classList.remove("hidden");
       document.getElementById("resultIdentity").innerText = `Nama: ${studentName} | No. Absen: ${studentNumber} | Kelas: ${studentClass}`;
-      document.getElementById("scoreBox").innerHTML = `Nilai: ${score}<br>Benar: ${correct}/${questions.length} | Salah: ${wrong}`;
+      document.getElementById("scoreBox").innerHTML = `Nilai: ${score}`;
 
-      renderReview();
+      sendToGoogleSheet(resultData);
     }
 
-    function renderReview() {
-      let html = `
-        <h3>Review Jawaban</h3>
-        <table>
-          <tr>
-            <th>No</th>
-            <th>Jawaban Siswa</th>
-            <th>Kunci</th>
-            <th>Status</th>
-          </tr>
-      `;
+    function sendToGoogleSheet(data) {
+      const statusEl = document.getElementById("sheetStatus");
 
-      questions.forEach((q, i) => {
-        const studentAnswer = answers[i] || "-";
-        const status = studentAnswer === q.answer ? "Benar" : "Salah";
-        const cls = status === "Benar" ? "benar" : "salah";
-        html += `
-          <tr>
-            <td>${i + 1}</td>
-            <td>${studentAnswer}</td>
-            <td>${q.answer}</td>
-            <td class="${cls}">${status}</td>
-          </tr>
-        `;
+      if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL === "PASTE_URL_APPS_SCRIPT_DI_SINI") {
+        statusEl.innerText = "Google Sheet belum disambungkan. Isi GOOGLE_SCRIPT_URL dulu di kode.";
+        return;
+      }
+
+      fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      })
+      .then(() => {
+        statusEl.innerText = "Hasil sudah dikirim ke Google Sheet.";
+      })
+      .catch(() => {
+        statusEl.innerText = "Gagal mengirim ke Google Sheet. Cek koneksi atau URL Apps Script.";
       });
-
-      html += "</table>";
-      document.getElementById("reviewArea").innerHTML = html;
-    }
-
-    function downloadResult() {
-      const data = JSON.parse(localStorage.getItem("hasilCBT"));
-      let text = "HASIL CBT SAS 2 BAHASA INDONESIA\n";
-      text += "====================================\n";
-      text += `Nama: ${data.nama}\n`;
-      text += `No. Absen: ${data.noAbsen}\n`;
-      text += `Kelas: ${data.kelas}\n`;
-      text += `Benar: ${data.benar}/${data.jumlahSoal}\n`;
-      text += `Salah: ${data.salah}\n`;
-      text += `Nilai: ${data.nilai}\n`;
-      text += `Waktu selesai: ${data.waktuSelesai}\n`;
-
-      const blob = new Blob([text], { type: "text/plain" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `hasil-${studentName.replaceAll(" ", "-")}.txt`;
-      a.click();
-      URL.revokeObjectURL(url);
     }
   </script>
 </body>
